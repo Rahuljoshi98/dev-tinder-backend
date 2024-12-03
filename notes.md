@@ -1,4 +1,4 @@
-# firt initialze npm in our project
+# first initialze npm in our project
 
 # Creating the server :-
 
