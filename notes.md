@@ -31,3 +31,51 @@ express: "^4.18.1"
 # package-lock.json Vs package.json
 
 package.json does not tell the exact version of our application it may be updated but the package-lock.json give the exact version of our application.
+
+# Put vs Patch
+
+**Put :-**
+
+- Replaces the entire resource with the data provided in the request.
+
+- Typically used when you want to overwrite the resource completely.
+
+**Patch :-**
+
+- Partially updates a resource with the data provided in the request.
+
+- Only the fields included in the request are updated, other fields remain unchanged.
+
+# Getting data from query
+
+Suppose the route is
+
+```javascript
+localhost:3000/home?user_id=111&user_name=rahul_joshi
+```
+
+and we want to access the user_id. We can access it using query :-
+
+```javascript
+app.get("/home", (req, res) => {
+  console.log(req.query);
+  res.send(`user id is ${req.query.user_id}`);
+});
+```
+
+# Dynamic Routes
+
+Suppose the route is
+
+```javascript
+localhost: 3000 / home / 111 / rahul_joshi;
+```
+
+We can access the data from params :-
+
+```javascript
+app.get("/home/:user_id/:user_name", (req, res) => {
+  console.log(req.params);
+  res.send(req.params);
+});
+```
