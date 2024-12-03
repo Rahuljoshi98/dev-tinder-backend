@@ -79,3 +79,45 @@ app.get("/home/:user_id/:user_name", (req, res) => {
   res.send(req.params);
 });
 ```
+
+## What is Middleware?
+
+Middleware is a request handlers that allows to intercept and manipulate request and response before they reach to the route handler. Middlewares are basically used in authentication, logging, error handling etc. It is a callback function having three arguments req, res, next.
+
+## Difference between app.use() and app.all()
+
+Major difference between app.use and app.all is the route path. app.all take the exact path but the app.use take the prefix and handle the path accordingly.
+
+```javascript
+app.use("/home", (req, res) => {
+  res.send("all");
+});
+```
+
+it will take alll the path having prefix "/home" i.e., "/home/user" is the valid path in app.use
+
+```javascript
+app.all("/home", (req, res) => {
+  res.send("all");
+});
+```
+
+but in the case of app.all it will be valid route for only "/home" it will not triggered on "/home/user".
+
+## Error Handling
+
+- We can use try catch also for the error handling.
+
+- **Wild Card Error Handling :-**
+
+```javascript
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    res.status(500).send("something went wrong");
+  }
+});
+```
+
+- While adding the error route make sure take the four parameters in which first one is error, second is req, third is res, and fourth is next.
+
+- While using the wild card error handling make sure it should be placed at the bottom.
