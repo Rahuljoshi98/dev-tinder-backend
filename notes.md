@@ -121,3 +121,23 @@ app.use("/", (err, req, res, next) => {
 - While adding the error route make sure take the four parameters in which first one is error, second is req, third is res, and fourth is next.
 
 - While using the wild card error handling make sure it should be placed at the bottom.
+
+# Nomenclature in mongodb
+
+Suppose we have a database named as devTinder in our mongodb compass and inside the database we have a folder named as User. This folder is called collection and inside that collection we have data of the user which is known as the document.
+
+- devTinder (databse)
+  - User (Collection)
+    - Json object (document)
+
+# app.use(express.json())
+
+It is important to add this middleware in our code. This middleware parses incoming JSON requests and makes the data available in req.body.
+
+```javascript
+app.use(express.json());
+
+app.post("/signup", async (req, res) => {
+  const userData = req.body;
+});
+```

@@ -1,25 +1,29 @@
 const express = require("express");
+const { connectDb } = require("./config/database");
+const { UserModel } = require("./models/user");
 
 const app = express();
+app.use(express.json());
 
-app.get("/home", (req, res) => {
-  console.log(req.query);
-  res.send(req.query);
-});
-
-app.get("/home/:user_id/:user_name", (req, res) => {
-  console.log(req.params);
-  res.send(req.params);
-});
-
-app.use((req, res) => {
-  if (req.url === "/home") {
-    res.send("You are in Home Page");
-  } else {
-    res.send("Hello from rahul");
+app.post("/signup", async (req, res) => {
+  try {
+    const userData = req.body;
+    // creating the instance of user
+    const user = new UserModel(userData);
+    await user.save();
+    res.send("data added successfully");
+  } catch (error) {
+    res.status(400).send("Error saving the data");
   }
 });
 
-app.listen(3000, "localhost", () => {
-  console.log("server is running in port no 3000....");
-});
+connectDb()
+  .then(() => {
+    console.log("database connected successfully");
+    app.listen(3000, "localhost", () => {
+      console.log("server is running in port no 3000....");
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
