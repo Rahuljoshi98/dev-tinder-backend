@@ -141,3 +141,22 @@ app.post("/signup", async (req, res) => {
   const userData = req.body;
 });
 ```
+
+# JSON vs JS OBject
+
+- **JS Objects :-** Can include complex types like functions, undefined, Symbol, or custom classes. Property names can be without quotes unless they contain special characters or spaces.
+- **JSON :-** Must adhere the specific rue:-
+  -Must adhere to specific rules:
+
+  - All keys and string values must be enclosed in double quotes.
+  - Cannot include functions, undefined, or special data types like Symbol.
+  - Only supports the following types:
+    - Strings, Numbers, Booleans, Arrays, Objects (in JSON format), and null.
+
+- Conversion from JSON to Js Object :-
+
+  - JSON.parse(jsonstring)
+
+- Conversion from Js Object to JSON :-
+
+  - JSON.stringfy(jsobject)

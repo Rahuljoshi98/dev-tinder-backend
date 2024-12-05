@@ -17,6 +17,48 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+app.get("/users", async (req, res) => {
+  const userId = req.body.user_id;
+  const data = await UserModel.findById(userId);
+  res.send(data);
+});
+
+app.delete("/users", async (req, res) => {
+  const userId = req.body.user_id;
+  try {
+    const data = await UserModel.findById(userId);
+    if (!data) {
+      return res.status(400).send("User Not Found");
+    }
+    // const deletedUsers = await UserModel.deleteMany({
+    //   firstName: "rahul",
+    //   age: { $gte: 20 },
+    // });
+    // console.log("deletedUsers", deletedUsers);
+    await UserModel.findByIdAndDelete(userId);
+    res.send("User Deleted Successfully");
+  } catch (error) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
+app.patch("/users", async (req, res) => {
+  const userId = req.body.user_id;
+  const updatedData = { ...req.body };
+  if (updatedData?.newEmail) {
+    updatedData.emailId = updatedData?.newEmail;
+  }
+  try {
+    const data = await UserModel.findOneAndUpdate(
+      { emailId: req.body.emailId },
+      updatedData
+    );
+    res.send("User Updated Successfully");
+  } catch (error) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
 connectDb()
   .then(() => {
     console.log("database connected successfully");
